@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdyu1ki3s58uj"]
+
+[ext_resource type="Script" path="res://Vasco.gd" id="1_o8wp8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tj21e"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_u01ue"]
+
+[node name="Vasco" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28148, 0)
+script = ExtResource("1_o8wp8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_tj21e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_u01ue")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.554105, -0.419077)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
