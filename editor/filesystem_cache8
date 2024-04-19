@@ -1,3 +1,6 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1712307752
+::res://::1713514225
 icon.svg::CompressedTexture2D::1330578345967632133::1712307748::1712307753::1::::<><>::
+test_level.tscn::PackedScene::7297504490970000215::1713514054::0::1::::<><>::uid://bdyu1ki3s58uj::::res://vasco.tscn
+Vasco.gd::GDScript::-1::1713514203::0::1::::<>CharacterBody3D<>::
+vasco.tscn::PackedScene::2647793590090890053::1713514055::0::1::::<><>::res://Vasco.gd
