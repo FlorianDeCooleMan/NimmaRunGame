@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdyu1ki3s58uj"]
+[gd_scene load_steps=8 format=3 uid="uid://bdyu1ki3s58uj"]
 
 [ext_resource type="Script" path="res://Vasco.gd" id="1_o8wp8"]
 [ext_resource type="PackedScene" uid="uid://blvhohb8is5py" path="res://sword.tscn" id="2_5rrm0"]
@@ -6,6 +6,44 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tj21e"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u01ue"]
+
+[sub_resource type="Animation" id="Animation_7h6uk"]
+resource_name = "Idle"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Camera3D/Sword:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0880693, 0, 0), Vector3(-0.190241, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ailpq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Camera3D/Sword:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0880693, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vri7n"]
+_data = {
+"Idle": SubResource("Animation_7h6uk"),
+"RESET": SubResource("Animation_ailpq")
+}
 
 [node name="Vasco" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28148, 0)
@@ -23,4 +61,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.554105, -0.419077)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
 [node name="Sword" parent="Head/Camera3D" instance=ExtResource("2_5rrm0")]
-transform = Transform3D(1, 0, 0, 0, 0.99975, -0.0223558, 0, 0.0223558, 0.99975, 0.217666, -0.376575, -0.846002)
+transform = Transform3D(1, 0, 0, 0, 0.996124, 0.0879555, 0, -0.0879555, 0.996124, 0.329911, -0.376575, -0.715709)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vri7n")
+}
+autoplay = "Idle"
