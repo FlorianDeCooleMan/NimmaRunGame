@@ -2,12 +2,14 @@
 
 extends CharacterBody3D
 
+var crouch = false
+
 var speed
 const WALK_SPEED = 5.0
 const SPRINT_SPEED = 8.0
-const CROUCH_SPEED = 3.0
+var CROUCH_SPEED = 3.0
 const SLIDE_SPEED = 100.0
-var JUMP_VELOCITY = 4.8
+var JUMP_VELOCITY = 5
 const SENSITIVITY = 0.004
 
 #bob variables
@@ -20,7 +22,7 @@ const BASE_FOV = 75.0
 const FOV_CHANGE = 1.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = 9.8
+var gravity = 11
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
@@ -60,12 +62,12 @@ func _physics_process(delta):
 	# Handle Crouch.
 	if Input.is_action_pressed("crouch"):
 		scale.y = 0.5
-		speed = SLIDE_SPEED
-		await(5.0)
+		crouch = true
 		speed = CROUCH_SPEED
 		
 	else:
 		scale.y = 1.047
+		crouch = false
 
 
 	# Get the input direction and handle the movement/deceleration.
@@ -93,9 +95,13 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func _on_body_entered(body):
-	if body.is_in_group("Wall"):
-		print("Collision with Wall detected!")
+	if crouch == true:
+		print("De speler is aan het hurken")
+		CROUCH_SPEED = 10
+		await get_tree().create_timer(1).timeout
+		CROUCH_SPEED = 3
+	else:
+		CROUCH_SPEED = 3
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
@@ -113,5 +119,5 @@ func _on_area_3d_area_entered(area):
 func _on_area_3d_area_exited(area):
 	if area.name == "Wall":
 		print("Player verlaat muur")
-		JUMP_VELOCITY = 4.8
-		gravity = 9.8
+		JUMP_VELOCITY = 5
+		gravity = 11
