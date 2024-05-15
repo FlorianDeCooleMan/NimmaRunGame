@@ -5,7 +5,7 @@ const WALK_SPEED = 5.0
 const SPRINT_SPEED = 8.0
 const CROUCH_SPEED = 3.0
 const SLIDE_SPEED = 100.0
-const JUMP_VELOCITY = 4.8
+var JUMP_VELOCITY = 4.8
 const SENSITIVITY = 0.004
 
 #bob variables
@@ -36,13 +36,18 @@ func _unhandled_input(event):
 
 
 func _physics_process(delta):
+	#print(velocity.y)
+	
 	# Add the gravity.
 	if not is_on_floor():
+		#print("is_on_floor")
 		velocity.y -= gravity * delta
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+
 
 	# Handle Sprint.
 	if Input.is_action_pressed("sprint"):
@@ -82,13 +87,29 @@ func _physics_process(delta):
 	# FOV
 	var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
-	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
+	camera.fov = lerp(camera.fov, target_fov, delta * 2.0)
 
 	move_and_slide()
 
+func _on_body_entered(body):
+	if body.is_in_group("Wall"):
+		print("Collision with Wall detected!")
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
+
+
+func _on_area_3d_area_entered(area):
+	if area.name == "Wall":
+		print("collided")
+		JUMP_VELOCITY = 0
+		gravity = 9999
+	
+func _on_area_3d_area_exited(area):
+	if area.name == "Wall":
+		print("Player verlaat muur")
+		JUMP_VELOCITY = 4.8
+		gravity = 9.8
