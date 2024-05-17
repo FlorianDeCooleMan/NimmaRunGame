@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://db773kx47mucd"]
+[gd_scene load_steps=11 format=3 uid="uid://db773kx47mucd"]
 
 [ext_resource type="PackedScene" uid="uid://bdyu1ki3s58uj" path="res://vasco.tscn" id="1_buci1"]
 
@@ -25,9 +25,12 @@ albedo_color = Color(1, 1, 0.235294, 1)
 material = SubResource("StandardMaterial3D_cf6f2")
 size = Vector3(50, 1, 50)
 
+[sub_resource type="BoxMesh" id="BoxMesh_h2byt"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_fbq2n"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_h2byt"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mca4d"]
+size = Vector3(1.1, 0.98, 1.1)
 
 [node name="TestLevel" type="Node3D"]
 
@@ -50,11 +53,16 @@ mesh = SubResource("BoxMesh_6oeql")
 [node name="Vasco" parent="." instance=ExtResource("1_buci1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.28148, 0)
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68775, 3.76922)
+[node name="RigidBody3D" type="RigidBody3D" parent="." groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29374, 3.76922)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_h2byt")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("BoxShape3D_fbq2n")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-mesh = SubResource("BoxMesh_h2byt")
+[node name="Wall" type="Area3D" parent="RigidBody3D" groups=["Blok1"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Wall"]
+shape = SubResource("BoxShape3D_mca4d")

@@ -102,6 +102,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.554105, -0.419077)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
 [node name="Sword" parent="Head/Camera3D" instance=ExtResource("2_5rrm0")]
+
 transform = Transform3D(-0.194446, -0.946602, 0.257166, -0.9784, 0.205918, 0.0181818, -0.070166, -0.248076, -0.966194, 0.402655, -0.376575, -0.715709)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -112,3 +113,14 @@ autoplay = "Idle"
 playback_default_blend_time = 0.1
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+
+transform = Transform3D(1, 0, 0, 0, 0.99975, -0.0223558, 0, 0.0223558, 0.99975, 0.217666, -0.376575, -0.846002)
+
+[node name="Area3D" type="Area3D" parent="." groups=["Player"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_tj21e")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
+
