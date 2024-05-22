@@ -1,6 +1,6 @@
+AnimationPlayer
+RigidBody3D
 CollisionShape3D
 Area3D
 MeshInstance3D
-RigidBody3D
-AnimationPlayer
 Node3D

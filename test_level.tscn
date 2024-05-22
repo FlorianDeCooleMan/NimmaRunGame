@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://db773kx47mucd"]
+[gd_scene load_steps=12 format=3 uid="uid://db773kx47mucd"]
 
 [ext_resource type="PackedScene" uid="uid://bdyu1ki3s58uj" path="res://vasco.tscn" id="1_buci1"]
+[ext_resource type="PackedScene" uid="uid://rb0nwqihvlxa" path="res://spell.tscn" id="2_x23qe"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2yybo"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -30,7 +31,7 @@ size = Vector3(50, 1, 50)
 [sub_resource type="BoxShape3D" id="BoxShape3D_fbq2n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mca4d"]
-size = Vector3(1.1, 0.98, 1.1)
+size = Vector3(1.05, 0.4, 1.05)
 
 [node name="TestLevel" type="Node3D"]
 
@@ -54,7 +55,7 @@ mesh = SubResource("BoxMesh_6oeql")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.28148, 0)
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.29374, 3.76922)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11609, 3.76922)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 mesh = SubResource("BoxMesh_h2byt")
@@ -65,4 +66,10 @@ shape = SubResource("BoxShape3D_fbq2n")
 [node name="Wall" type="Area3D" parent="RigidBody3D" groups=["Blok1"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.299516, 0)
 shape = SubResource("BoxShape3D_mca4d")
+
+[node name="Spell" parent="." instance=ExtResource("2_x23qe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.93388, 1.24552, 4.59753)
+
+[connection signal="body_entered" from="Spell" to="Vasco" method="_on_spell_body_entered"]

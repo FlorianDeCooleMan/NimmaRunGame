@@ -26,6 +26,7 @@ var gravity = 11
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
+@onready var anim_player = $AnimationPlayer
 
 
 func _ready():
@@ -40,7 +41,6 @@ func _unhandled_input(event):
 
 
 func _physics_process(delta):
-	#print(velocity.y)
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -98,6 +98,7 @@ func _physics_process(delta):
 	if crouch == true:
 		print("De speler is aan het hurken")
 		CROUCH_SPEED = 10
+		velocity.x = velocity.x*1.02
 		await get_tree().create_timer(1).timeout
 		CROUCH_SPEED = 3
 	else:
@@ -114,10 +115,24 @@ func _on_area_3d_area_entered(area):
 	if area.name == "Wall":
 		print("collided")
 		JUMP_VELOCITY = 0
-		gravity = 9999
+		gravity = 999	
+	if area.name == "Spell":
+		print("je bent een tovernaar!")
+		var parent_node = area.get_parent()
+		if parent_node:
+			parent_node.queue_free()
+	
 	
 func _on_area_3d_area_exited(area):
 	if area.name == "Wall":
 		print("Player verlaat muur")
 		JUMP_VELOCITY = 5
 		gravity = 11
+		
+func _process(delta):
+	if Input.is_action_just_pressed("attack"):
+		anim_player.play("SwordSlash")
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "SwordSlash":
+		anim_player.play("Idle")

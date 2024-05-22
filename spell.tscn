@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://rb0nwqihvlxa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0juwk"]
+albedo_color = Color(1, 0.101961, 0.815686, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_cer6c"]
+material = SubResource("StandardMaterial3D_0juwk")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b6ypy"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vgr3f"]
+
+[node name="Spell" type="RigidBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_cer6c")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_b6ypy")
+disabled = true
+
+[node name="Spell" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spell"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+shape = SubResource("SphereShape3D_vgr3f")
