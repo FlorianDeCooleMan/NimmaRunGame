@@ -26,6 +26,7 @@ var gravity = 11
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
+@onready var anim_player = $AnimationPlayer
 
 
 func _ready():
@@ -121,3 +122,13 @@ func _on_area_3d_area_exited(area):
 		print("Player verlaat muur")
 		JUMP_VELOCITY = 5
 		gravity = 11
+
+func _process(delta):
+	if Input.is_action_just_pressed("attack"):
+		anim_player.play("SwordSlash")
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "SwordSlash":
+		anim_player.play("Idle")
+
