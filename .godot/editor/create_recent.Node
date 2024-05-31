@@ -1,6 +1,9 @@
+MeshInstance3D
+DirectionalLight3D
+WorldEnvironment
+GridMap
 CollisionShape3D
 Area3D
-MeshInstance3D
 RigidBody3D
 AnimationPlayer
 Node3D
