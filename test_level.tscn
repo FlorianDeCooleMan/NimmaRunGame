@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://db773kx47mucd"]
+[gd_scene load_steps=5 format=3 uid="uid://db773kx47mucd"]
 
-[ext_resource type="MeshLibrary" path="res://editor/tilse5.0.tres" id="1_4n7g6"]
+[ext_resource type="MeshLibrary" uid="uid://cm71nu0x8e0vx" path="res://editor/tilse5.0.tres" id="1_4n7g6"]
 [ext_resource type="PackedScene" uid="uid://bdyu1ki3s58uj" path="res://vasco.tscn" id="2_bm1r1"]
+[ext_resource type="PackedScene" path="res://SpeedSpell.tscn" id="3_1bwb3"]
+[ext_resource type="PackedScene" uid="uid://b8ge8rqeo6e4t" path="res://jumpSpell.tscn" id="4_7lvwt"]
 
 [node name="TestLevel" type="Node3D"]
 
@@ -21,3 +23,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5003, 8.35248, -17.2699)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-1, 0, 0, 0, -0.125004, 0.992156, 0, -0.992156, -0.125004, 0, 462.951, 0)
+
+[node name="RigidBody3D" parent="." instance=ExtResource("3_1bwb3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.75948, 7.11973, 0.263062)
+
+[node name="JumpSpell" parent="." instance=ExtResource("4_7lvwt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.45872, 6.68722, 4.57436)

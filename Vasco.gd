@@ -3,15 +3,22 @@
 extends CharacterBody3D
 
 var crouch = false
+var holdSpell = false
+var spell
+
+var jumpMax = 2;
+var doubleJump = 0;
+var double_jumped = false;
+
+var holdSpeedSpell = false;
 
 var speed
-const WALK_SPEED = 5.0
-const SPRINT_SPEED = 8.0
+var WALK_SPEED = 5.0
+var SPRINT_SPEED = 8.0
 var CROUCH_SPEED = 3.0
-const SLIDE_SPEED = 100.0
-var JUMP_VELOCITY = 5
+var JUMP_VELOCITY = 7
 const SENSITIVITY = 0.004
-
+"mesh"
 #bob variables
 const BOB_FREQ = 2.4
 const BOB_AMP = 0.08
@@ -41,7 +48,8 @@ func _unhandled_input(event):
 
 
 func _physics_process(delta):
-	#print(velocity.y)
+	print(holdSpell)
+	
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -52,7 +60,21 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
+	if Input.is_action_just_pressed("jump") and (holdSpell == true) and doubleJump < jumpMax:
+		doubleJump +=1
+		velocity.y = JUMP_VELOCITY
+	elif is_on_floor():
+		doubleJump = 0
+	elif doubleJump >= jumpMax:
+		holdSpell = false;
 
+	if holdSpell == true:
+		spell = "Je kan double jumpen!"
+	elif holdSpeedSpell == true:
+		spell = "Je bent sonic! VROEM!"
+	else:
+		spell = "Je bent GEEN tovernaar!"
+	$Label.text = str(spell)
 
 	# Handle Sprint.
 	if Input.is_action_pressed("sprint"):
@@ -99,6 +121,7 @@ func _physics_process(delta):
 	if crouch == true:
 		print("De speler is aan het hurken")
 		CROUCH_SPEED = 10
+		velocity.x = velocity.x*1.02
 		await get_tree().create_timer(1).timeout
 		CROUCH_SPEED = 3
 	else:
@@ -110,18 +133,26 @@ func _headbob(time) -> Vector3:
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
-
-func _on_area_3d_area_entered(area):
-	if area.name == "Wall":
-		print("collided")
-		JUMP_VELOCITY = 0
-		gravity = 9999
-	
-func _on_area_3d_area_exited(area):
-	if area.name == "Wall":
-		print("Player verlaat muur")
-		JUMP_VELOCITY = 5
-		gravity = 11
+func _on_area_3d_area_entered(area):	
+	if area.name == "JumpSpell":
+		holdSpell = true;
+	elif area.name == "SpeedSpell":
+		holdSpeedSpell = true;
+		
+	var parent_node = area.get_parent()
+	if parent_node:
+		parent_node.queue_free()
+		
+	if holdSpeedSpell == true:
+		SPRINT_SPEED = SPRINT_SPEED*2;
+		WALK_SPEED = WALK_SPEED*2;
+		CROUCH_SPEED = CROUCH_SPEED*2;
+		await get_tree().create_timer(5).timeout
+		SPRINT_SPEED = SPRINT_SPEED/2;
+		WALK_SPEED = WALK_SPEED/2;
+		CROUCH_SPEED = CROUCH_SPEED/2;
+		holdSpeedSpell = false
+		
 		
 func _process(delta):
 	if Input.is_action_just_pressed("attack"):
@@ -131,4 +162,3 @@ func _process(delta):
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "SwordSlash":
 		anim_player.play("Idle")
-

@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8ge8rqeo6e4t"]
+
+[ext_resource type="Texture2D" uid="uid://uyvujexp0n15" path="res://Kale-Jake.jpg" id="1_j1j7c"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b6ypy"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vgr3f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvqud"]
+albedo_texture = ExtResource("1_j1j7c")
+
+[sub_resource type="SphereMesh" id="SphereMesh_d5fqs"]
+material = SubResource("StandardMaterial3D_wvqud")
+
+[node name="JumpSpell" type="RigidBody3D"]
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_b6ypy")
+disabled = true
+
+[node name="JumpSpell" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="JumpSpell"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+shape = SubResource("SphereShape3D_vgr3f")
+
+[node name="Boek" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_d5fqs")
+skeleton = NodePath("")
