@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://dr2e5w1am46dm"]
+
+[ext_resource type="Script" path="res://pause_menu.gd" id="1_4jm2k"]
+[ext_resource type="Texture2D" uid="uid://c2pvbhs6rjs5i" path="res://MenuScherm2.png" id="2_6dg1u"]
+[ext_resource type="FontFile" uid="uid://bvcrugg3g43l6" path="res://Gamix.ttf" id="3_nhhpu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_abp2a"]
+texture = ExtResource("2_6dg1u")
+
+[sub_resource type="LabelSettings" id="LabelSettings_b1y40"]
+font = ExtResource("3_nhhpu")
+font_size = 35
+font_color = Color(0, 0, 0, 1)
+
+[node name="pauseMenu" type="Control"]
+layout_mode = 3
+anchor_left = 0.044
+anchor_top = 0.404
+anchor_right = 0.956
+anchor_bottom = 0.605
+offset_left = 0.311996
+offset_top = -67.792
+offset_right = -0.312012
+offset_bottom = 13.96
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4jm2k")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.485
+anchor_right = 0.962
+anchor_bottom = 1.585
+offset_left = -60.0
+offset_top = -101.18
+offset_right = 93.9
+offset_bottom = 121.98
+theme_override_styles/panel = SubResource("StyleBoxTexture_abp2a")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.249
+anchor_top = 0.274
+anchor_right = 0.249
+anchor_bottom = 0.274
+offset_left = 101.55
+offset_top = -59.088
+offset_right = 420.55
+offset_bottom = 58.912
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "--Pause--
+"
+label_settings = SubResource("LabelSettings_b1y40")
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_nhhpu")
+text = "Resume"
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_nhhpu")
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

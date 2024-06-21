@@ -1,13 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8ge8rqeo6e4t"]
-
-[ext_resource type="Texture2D" uid="uid://uyvujexp0n15" path="res://Kale-Jake.jpg" id="1_j1j7c"]
+[gd_scene load_steps=5 format=3 uid="uid://b8ge8rqeo6e4t"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_b6ypy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vgr3f"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvqud"]
-albedo_texture = ExtResource("1_j1j7c")
+albedo_color = Color(0.792157, 1, 0.054902, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_d5fqs"]
 material = SubResource("StandardMaterial3D_wvqud")

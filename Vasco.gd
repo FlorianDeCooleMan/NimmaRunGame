@@ -25,8 +25,11 @@ const BOB_AMP = 0.08
 var t_bob = 0.0
 
 #fov variables
-const BASE_FOV = 75.0
+var BASE_FOV = 75.0
 const FOV_CHANGE = 1.5
+const SPEED_FOV = 90.0
+
+var paused = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 11
@@ -73,7 +76,7 @@ func _physics_process(delta):
 	elif holdSpeedSpell == true:
 		spell = "Je bent sonic! VROEM!"
 	else:
-		spell = "Je bent GEEN tovernaar!"
+		spell = ""
 	$Label.text = str(spell)
 
 	# Handle Sprint.
@@ -120,12 +123,15 @@ func _physics_process(delta):
 
 	if crouch == true:
 		print("De speler is aan het hurken")
+		BASE_FOV = SPEED_FOV
 		CROUCH_SPEED = 10
 		velocity.x = velocity.x*1.02
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(3).timeout
 		CROUCH_SPEED = 3
+		BASE_FOV = 75
 	else:
 		CROUCH_SPEED = 3
+		BASE_FOV = 75
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
@@ -143,22 +149,24 @@ func _on_area_3d_area_entered(area):
 	if parent_node:
 		parent_node.queue_free()
 		
-	if holdSpeedSpell == true:
+	while holdSpeedSpell == true:
+		BASE_FOV = 110
 		SPRINT_SPEED = SPRINT_SPEED*2;
 		WALK_SPEED = WALK_SPEED*2;
 		CROUCH_SPEED = CROUCH_SPEED*2;
-		await get_tree().create_timer(5).timeout
+		await get_tree().create_timer(6).timeout
 		SPRINT_SPEED = SPRINT_SPEED/2;
 		WALK_SPEED = WALK_SPEED/2;
-		CROUCH_SPEED = CROUCH_SPEED/2;
+		CROUCH_SPEED = 12;
 		holdSpeedSpell = false
+		BASE_FOV = 75
 		
 		
 func _process(delta):
 	if Input.is_action_just_pressed("attack"):
 		anim_player.play("SwordSlash")
 
-
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "SwordSlash":
 		anim_player.play("Idle")
+

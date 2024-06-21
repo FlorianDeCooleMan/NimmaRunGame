@@ -1,6 +1,5 @@
-res://vasco.tscn
-res://editor/tilse5.0.tres
-res://Vasco.gd
 res://test_level.tscn
-res://sword.tscn
+res://tiles9.0.tres
+res://pause_menu.tscn
+res://Vasco.gd
 res://jumpSpell.tscn
