@@ -74,7 +74,7 @@ func _physics_process(delta):
 	if holdSpell == true:
 		spell = "Je kan double jumpen!"
 	elif holdSpeedSpell == true:
-		spell = "Je bent sonic! VROEM!"
+		spell = "Speed boost"
 	else:
 		spell = ""
 	$Label.text = str(spell)

@@ -1,5 +1,7 @@
 res://test_level.tscn
 res://tiles9.0.tres
 res://pause_menu.tscn
-res://Vasco.gd
 res://jumpSpell.tscn
+res://sword.tscn
+res://vasco.tscn
+res://tiles-with-coll.tscn

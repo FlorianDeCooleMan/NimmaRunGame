@@ -49,4 +49,4 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.59674, 13.5019, 26.3429)
 
 [node name="RigidBody3D" parent="." instance=ExtResource("6_wbryh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20266, 13.9453, 26.58)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.1759, 13.9453, 26.58)
